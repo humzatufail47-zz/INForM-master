@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{945A4F09-BE19-4197-9240-648A4FE387CF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IN4MDatabase</RootNamespace>
+    <AssemblyName>IN4MDatabase</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Asset.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AssetAttibute.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AssetGroup.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AttributeGeneral_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillOfQuantity.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Building.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Campu.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Component.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentAttibute.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentFinance.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentInspection.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="COMPONENT_FINANCE_ARCHIVE.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Credential.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Department.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Floor.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hierarchy.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="iN4MDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iN4MDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="iN4MDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="iN4MDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>iN4MDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Labour.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Location.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LookupInspectionPriority.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LookupInspectionStatu.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LookupLifecycleName.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LookupTreatType.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LookupWorkOrderPriority.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LookupWorkOrderStatu.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Material.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Organisation.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PerforGeneral_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PerformanceMeasure.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Room.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SetupHierarchy.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpFilterInspection_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpFilterInspection_Result1.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpFilterInspection_Result2.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetAfterFilter_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpgetAssCompoAttrib_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetAssCompoFinance_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetAssCompoPerfor_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetAssets_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetBeforeFilterationData_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetComponent_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetDashBordData_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetDashBordData_Result1.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetEditLocationData_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetEditStaffData_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetEditStaff_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetEditTreatmentData_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetInceptionData_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetInceptionData_Result1.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetInceptionDetails_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetLocation_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetLocation_Result1.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpgetLookupInspectionPeriortiy_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetLookUpInspectionStatus_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpgetLookupworkOrderPerioerty_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetLookUpWorkOrder_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetMaterialOfTreatment_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetMaterialOfTreatment_Result1.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetOnlyAssestAndLoc_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetOnlyAssestInfo_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetStaff_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetStaff_Result1.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetSupplierInfo_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetTreamtneInfo_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetTreamtneInfo_Result1.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetTreamtneInfo_Result2.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetWorkOrderEssentialInfo_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spGetWorkOrderFilters_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetWorkOrderInfo_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpInspectionTreatment_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpLoadInitialInfo_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpWorker3_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpWorker4_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpWorkerGenral_Result.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Staff.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Treatment.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_4CAST_IMPORT.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_COMPONENTS.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_COMPONENT_FINANCE.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkOrder.cs">
+      <DependentUpon>iN4MDataModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="iN4MDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>iN4MDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="iN4MDataModel.edmx.diagram">
+      <DependentUpon>iN4MDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="iN4MDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>iN4MDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>iN4MDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="iN4MDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>iN4MDataModel.edmx</DependentUpon>
+      <LastGenOutput>iN4MDataModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,438 @@
+﻿
+@{
+    ViewBag.Title = "WorkOrder";
+}
+<!-- DataTables CSS -->
+<link href="~/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+<!-- DataTables Responsive CSS -->
+<link href="~/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="~/dist/css/sb-admin-2.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="~/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="~/vendor/metisMenu/metisMenu.min.js"></script>
+<!-- DataTables JavaScript -->
+<script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="~/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+<script src="~/vendor/datatables-responsive/dataTables.responsive.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="~/dist/js/sb-admin-2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/js/bootstrap-datepicker.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#ICreD').datepicker({
+        });
+
+        $('#ICloD').datepicker({
+        });
+
+        $('#WorkOrderSatusDropDown,#WorkOrderperopDropDown').change(function () {
+            var selectedstatus = $('#WorkOrderSatusDropDown').find(':selected').val();
+            var selectedperiorties = $('#WorkOrderSatusDropDown').find(':selected').val();
+            $('#WorkOrdertable').DataTable().clear().destroy();
+            $("#WorkOrdertable").DataTable({
+                "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+                responsive: true,
+                "language": {
+                    "search": "Filter records:"
+                },
+                "ajax": {
+                    "url": "/Home/GetWorkOrderFilterData",
+                    "type": "GET",
+                    "datatype": "json",
+                    "data": {
+                        status: selectedstatus,
+                        perioerties: selectedperiorties
+                    }
+                },
+                "aoColumns": [
+                    { "data": "WorkOrdersID", className: "hidden" },
+                    { "data": "WorkOrderName" },
+                    { "data": "WorkOrderDescription" }
+                ]
+
+            });
+
+        });
+
+        $('#WorkOrdertable tbody').on('click', 'tr', function () {
+            var values = $(this).children(":first").text();
+            $.ajax({
+                url: '@Url.Action("GetWorkOrderData", "Home")',
+                    method: 'GET',
+                    datatype: 'json',
+                    data: {
+                        uid: values
+
+                },
+                success: function (data) {
+                    $('#workorderName').val(data.d1);
+                    $('#workorderstatus').val(data.d2);
+                    $('#wop').val(data.d3);
+                    $('#DOWOC').val(data.d4);
+                    $('#DOWOCom').val(data.d5);
+                }
+            });
+        });
+
+        $("#inceptionTable").DataTable({
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            responsive: true,
+            "language": {
+                "search": "Filter records:"
+            },
+            "ajax": {
+                "url": "/Home/GetInceptionData",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "aoColumns": [
+                { "data": "ComponentInspectionsID",className: "hidden" },
+                { "data": "ComponentInspectionsName" },
+                { "data": "ComponentInspectionNotes" },
+                { "data": "InspectionCreationDate" },
+                { "data": "InspectionCloseDate" },
+                {
+                    "mData": "ComponentInspectionsID",
+                    "mRender": function (data, type, row) {
+                        return '<a data-toggle="modal" data-target="#myDeleteInceptionModal" data-id="' +
+                            data +
+                            '" href="#myDeleteInceptionModal" id="deleteanchor">Delete</a>';
+                    }
+                },
+                {
+                    "mData": "ComponentInspectionsID",
+                    "mRender": function (data, type, row) {
+                        return '<a data-toggle="modal" data-target="#myDeleteInceptionModal" data-id="' +
+                            data +
+                            '" href="#myDeleteInceptionModal" id="deleteanchor">Delete</a>';
+                    }
+                }
+            ]
+
+        });
+
+
+        $('#inceptionTable').on('click', 'tr', function () {
+            var values = $(this).children(":first").text();
+            $('#inceptionDetailsTable').DataTable().clear().destroy();
+            $("#inceptionDetailsTable").DataTable({
+            "lengthMenu": [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            responsive: true,
+            "language": {
+                "search": "Filter records:"
+            },
+            "ajax": {
+                "url": "/Home/GetInceptionDetailsData",
+                "type": "GET",
+                "datatype": "json",
+                "data": {
+                    uid:values
+                }
+            },
+
+            "aoColumns": [
+                { "data": "ComponentInspectionsName", className: "hidden"},
+                { "data": "ComponentName" },
+                { "data": "TreatmentsName" },
+                { "data": "TreatmentsDescription" }
+            ]
+
+        });
+        });
+
+
+        $('#AddInceptionModelButton').click(function () {
+            $.ajax({
+                url: '/Home/CreateInception',
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    IName: $('#IName').val(),
+                    IDsic: $('textarea[name="IDsic"]').val(),
+                    INote: $('#INote').val(),
+                    ICreD: $('#ICreD').val(),
+                    ICloD: $('#ICloD').val(),
+                    tName: $('#tName').val(),
+                    CName: $('#CName').val(),
+                    SName: $('#SName').val(),
+                    IPeriority: $('#IPeriority').val(),
+                    IStaus: $('#IStaus').val(),
+                    WOrder: $('#WOrder').val()
+
+                },
+
+                success: function (data) {
+                    if (data.k === 1) {
+                        alert('Inception Added');
+                    } else {
+                        alert('Inception Added Failed');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    alert(err.Message);
+                }
+            });
+
+        });
+
+
+        $('#clear').click(function () {
+            $('#inputdiv:input', $(this))
+                .each(function(index) {
+                    this.value = "";
+                });
+        });
+
+        $('#inceptiondeleteyes').click(function () {
+            var id = $('a[href="#myDeleteInceptionModal"]').data('id');
+            $.ajax({
+                url: '/Home/DeleteInception',
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    uid: id
+                }
+            });
+            $('#myDeleteInceptionModal').modal('hide');
+        });
+    });
+</script>
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Work Order</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Work Order Details</div>
+            <div class="panel-body">
+                <div id="inputdiv">
+                    <div class="form-group">
+                        <label for="workorderName">work order Name</label>
+                        <input type="text" class="form-control" id="workorderName">
+                    </div>
+                    <div class="form-group">
+                        <label for="workorderstatus">work order status:</label>
+                        <input type="text" class="form-control" id="workorderstatus">
+                    </div>
+                    <div class="form-group">
+                        <label for="wop">work order priority :</label>
+                        <input type="text" class="form-control" id="wop">
+                    </div>
+                    <div class="form-group">
+                        <label for="DOWOC">Date Work Order commenced :</label>
+                        <input type="text" class="form-control" id="DOWOC">
+                    </div>
+                    <div class="form-group">
+                        <label for="DOWOCom">Date Work Order Complete :</label>
+                        <input type="text" class="form-control" id="DOWOCom">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="clear">Clear</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="WorkOrderSatusDropDown">Work Order Status</label>
+                    @Html.DropDownList("status", ViewData["status"] as SelectList, "Select Staus", new { id = "WorkOrderSatusDropDown", @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="WorkOrderperopDropDown">Work Order priority</label>
+                    @Html.DropDownList("Periorities", ViewData["Periorities"] as SelectList, "Select Staus", new { id = "WorkOrderperopDropDown", @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Work Order(s)
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="WorkOrdertable">
+                        <thead>
+                            <tr>
+                                <th class="hidden">Work Order ID</th>
+                                <th>Work Order Name</th>
+                                <th>Work Order description</th>
+
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <button class="btn btn-success" type="button" id="AddInception" data-toggle="modal" data-target="#AddInceptionModel">Add Inspection</button>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <table width="100%" class="table table-striped table-bordered table-hover" id="inceptionTable">
+                    <thead>
+                        <tr>
+                            <th class="hidden">Inspection ID</th>
+                            <th>Inspection Name</th>
+                            <th>Inspection Note</th>
+                            <th>Inspection Creation Date</th>
+                            <th>Inspection Close Date</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <!-- /.table-responsive -->
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Inspection Details
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <table width="100%" class="table table-striped table-bordered table-hover" id="inceptionDetailsTable">
+                    <thead>
+                        <tr>
+                            <th class="hidden">Inspection Name</th>
+                            <th>Componnt Name</th>
+                            <th>Treatment Name</th>
+                            <th>Treatment Disc</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <!-- /.table-responsive -->
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myDeleteInceptionModal" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                <p>You are about to delete.</p>
+                <p>Do you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="inceptiondeleteyes">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="AddInceptionModel" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add new Inspection</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="IName">Inspection Name</label>
+                    <input type="text" class="form-control" id="IName">
+                </div>
+                <div class="form-group">
+                    <label for="IDsic">Inspection Discription</label>
+                    <textarea rows="2" class="form-control" id="IDsic" name="IDsic"></textarea>
+                </div><div class="form-group">
+                    <label for="INote">Inspection Note</label>
+                    <input type="text" class="form-control" id="INote">
+                </div>
+                <div class="form-group">
+                    <label for="ICreD">Inspection creation Date</label>
+                    <input type="text" class="form-control" id="ICreD">
+                </div><div class="form-group">
+                    <label for="ICloD">Inspection Closing Date</label>
+                    <input type="text" class="form-control" id="ICloD">
+                </div>
+                <div class="form-group">
+                    <label for="tName">Treatment Name</label>
+                    <input type="text" class="form-control" id="tName">
+                </div>
+                <div class="form-group">
+                    <label for="CName">component Name</label>
+                    <input type="text" class="form-control" id="CName">
+                </div>
+                <div class="form-group">
+                    <label for="SName">Staff Name</label>
+                    <input type="text" class="form-control" id="SName">
+                </div>
+                <div class="form-group">
+                    <label for="IPeriority">Inspection perioerity</label>
+                    <input type="text" class="form-control" id="IPeriority">
+                </div>
+                <div class="form-group">
+                    <label for="IStaus">Inspection status</label>
+                    <input type="text" class="form-control" id="IStaus">
+                </div>
+                <div class="form-group">
+                    <label for="WOrder">Work Order</label>
+                    <input type="text" class="form-control" id="WOrder">
+                </div>
+                <button type="submit" class="btn btn-default" id="AddInceptionModelButton">Add</button>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "ForgotPass";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="~/Content/logincss.css" rel="stylesheet" />
+<script>
+
+    //Ajax call used to send the reset link 
+</script>
+<div class="container">
+
+    <div class="row">
+        <!-- New set of columns, centered -->
+        <div class="col-md-6 col-md-offset-3" id="panel_1">
+            <img src="~/Resources/Capture.PNG" class="center-block" alt="Cinque Terre">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3" id="panel_2x">
+            <p id="p1">Forgotten Password</p>
+                <div class="form-group">
+                    <label for="inputsm" style="color: white">Email Address</label>
+                    <input class="form-control input-sm" id="inputsm" type="text" placeholder="Enter the Email ID">
+                </div>
+                <button type="button" class="btn btn-default" style="float: right">Send Link</button>
+        </div>
+    </div><div class="row">
+        <div class="col-md-6 col-md-offset-3" id="panel_3">
+
+            <a href="@Url.Action("Login","Login")">
+                <p id="p2">
+                    Secure Sign-in
+                </p>
+            </a>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9627f8eb7aba4b769e08669a4f1ba562" Name="Diagram1">
+        <EntityTypeShape EntityType="iN4MModel.AssetAttibute" Width="1.5" PointX="7.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.AssetGroup" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Asset" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.BillOfQuantity" Width="1.5" PointX="8.25" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Building" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Campu" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.ComponentAttibute" Width="1.5" PointX="12.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.ComponentFinance" Width="1.5" PointX="12.75" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.ComponentInspection" Width="1.5" PointX="12.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Component" Width="1.5" PointX="10.5" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Department" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Floor" Width="1.5" PointX="7.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Hierarchy" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Labour" Width="1.5" PointX="6" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Location" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.LookupInspectionPriority" Width="1.5" PointX="10.5" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.LookupInspectionStatu" Width="1.5" PointX="10.5" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.LookupWorkOrderPriority" Width="3.5" PointX="5.875" PointY="32.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.LookupWorkOrderStatu" Width="1.5" PointX="8.25" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Material" Width="1.5" PointX="8.25" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Organisation" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.PerformanceMeasure" Width="1.5" PointX="12.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Role" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Room" Width="1.5" PointX="9.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.SetupHierarchy" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Staff" Width="1.5" PointX="9.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Supplier" Width="1.5" PointX="8.25" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.Treatment" Width="1.5" PointX="10.5" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.WorkOrder" Width="1.5" PointX="10.5" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.COMPONENT_FINANCE_ARCHIVE" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.V_4CAST_IMPORT" Width="1.5" PointX="14.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iN4MModel.V_COMPONENTS" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="iN4MModel.FK_AssetAttibutes_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Assets_AssetGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Assets_Location" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Components_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_BillOfQuantity_Labour" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_BillOfQuantity_Materials" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Treatments_BillOfQuantity" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Buildings_Campus" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Departments_Building" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Floors_Buildings" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Campus_Org" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_ComponentAttibutes_Components" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_AssetFinance_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_ComponentInspections_Components" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_ComponentInspections_InspectionPriority" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_ComponentInspections_InspectionStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_ComponentInspections_Staff" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_ComponentInspections_Treatments" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_ComponentInspections_WorkOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Components_Materials" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_PerformanceMeasure_Assets" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Departments_Organisation" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Staff_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Rooms_Floors" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Hierarchy_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Location_Organisation" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_WorkOrders_Priority" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_WorkOrders_WorkOrderStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Staff_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="iN4MModel.FK_Treatments_Suppliers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="iN4MModel.LookupLifecycleName" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="iN4MModel.LookupTreatType" Width="1.5" PointX="0.75" PointY="3.875" />
+        <EntityTypeShape EntityType="iN4MModel.Credential" Width="1.5" PointX="4.75" PointY="3.75" />
+        <AssociationConnector Association="iN4MModel.FK_Treatments_TreatType" />
+        <EntityTypeShape EntityType="iN4MModel.V_COMPONENT_FINANCE" Width="1.5" PointX="17.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

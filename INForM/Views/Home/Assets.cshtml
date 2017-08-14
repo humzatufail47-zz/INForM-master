@@ -1,0 +1,548 @@
+﻿
+@{
+    ViewBag.Title = "Assets";
+}
+
+    <!-- DataTables CSS -->
+<link href="~/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+<!-- DataTables Responsive CSS -->
+<link href="~/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="~/dist/css/sb-admin-2.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="~/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="~/vendor/metisMenu/metisMenu.min.js"></script>
+<!-- DataTables JavaScript -->
+<script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="~/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+<script src="~/vendor/datatables-responsive/dataTables.responsive.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="~/dist/js/sb-admin-2.js"></script>
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/js/bootstrap-datepicker.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#Loc').focus(function () {
+            $('#Loc').removeClass('alert alert-danger');
+        });
+        $('#ShowsAssest').click(function () {
+            var valuesss = $('#Loc').val();
+            if (valuesss === "") {
+                $('#Loc').addClass('alert alert-danger');
+            } else {
+                $.ajax({
+                    url: '/Home/GetAssetsTypeAgainstLocation',
+                    method: 'post',
+                    data: { Loc: valuesss },
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#AssetsTypeDropDown').empty();
+                        $('#AssetsTypeDropDown').append($('<option>', {
+                            value: 'Choose your option',
+                            text: 'Choose your option'
+                        }));
+                        $.each(data, function (key, value) {
+                            $('#AssetsTypeDropDown').append($('<option>', {
+                                value: value,
+                                text: value
+                            }));
+
+                        });
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                });
+
+            }
+        });
+
+        $('#AssetsTypeDropDown').change(function () {
+            var selectedval = $(this).find(':selected').val();
+            $('#myAssTable').DataTable().clear().destroy();
+            $("#myAssTable").DataTable({
+                responsive: true,
+                "ajax": {
+                    "url": "/Home/GetAssest",
+                    "type": "GET",
+                    "datatype": "json",
+                    "data": {
+                        values: selectedval
+                    }
+                },
+                "columns": [
+                    { "data": "LocationID" },
+                    { "data": "AssetName" },
+                    { "data": "AssetDescription" },
+                    { "data": "InstallationDate" },
+                    { "data": "DisposalDate" },
+                    { "data": "AssetGroupName" },
+                    { "data": "Campus" },
+                    { "data": "BLDID" },
+                    { "data": "Floor" },
+                    { "data": "Room" },
+                    { "data": "ComponentName" }
+                ]
+            });
+
+
+        });
+
+        $('#date').datepicker({
+        });
+
+        $('#DDate').datepicker({
+        });
+
+
+
+        $("#Assetstable").DataTable({
+            responsive: true,
+
+            "language": {
+                "search": "Filter:"
+            },
+            "ajax": {
+                "url": "/Home/GetOnlyAssestAndLoc",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "AssetID", className: "hidden" },
+                { "data": "AssetName" },
+                { "data": "AssetDescription" },
+                { "data": "Campus" },
+                { "data": "Building" },
+                { "data": "Floor" },
+                { "data": "Room" },
+                {
+                    "mData": "AssetID",
+                    "mRender": function (data, type, row) {
+                        return "<a href='EditAssets/" + data + "'>EDIT</a>";
+                    }
+                },
+                {
+                    "mData": "AssetID",
+                    "mRender": function (data, type, row) {
+                        return "<a href='AddComponentbyAssets/" + data + "'>Add New Component</a>";
+                    }
+                }
+
+            ]
+        });
+
+        //$('#Assetstable_filter').addClass("hidden");
+
+        // DataTable
+        var table = $('#Assetstable').DataTable();
+
+        // Apply the search
+
+        $('#AssName')
+            .keyup(function () {
+                table.search($(this).val()).draw();
+            });
+        $('#Loc')
+            .keyup(function () {
+                table.search($(this).val()).draw();
+            });
+
+
+
+        $('#Assetstable tbody').on('click', 'tr', function () {
+            var value = $(this).children(":first").text();
+            $('#Componenttable').DataTable().clear().destroy();
+            $("#Componenttable").DataTable({
+                responsive: true,
+                "bFilter": false,
+                "ajax": {
+                    "url": "/Home/GetComponent",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": {
+                        query: value
+                    }
+                },
+                "columns": [
+                    { "data": "ComponentID", className: "hidden" },
+                    { "data": "ComponentName" },
+                    {
+                        "mData": "ComponentID",
+                        "mRender": function (data, type, row) {
+                            return "<a href='AddPerformance/" + data + "'>Add New</a>";
+                        }
+                    },
+
+                ]
+            });
+        });
+
+
+        $('#Componenttable tbody').on('click', 'tr', function () {
+            var value = $(this).children(":first").text();
+
+            $.ajax({
+                url: '@Url.Action("AttributeInfo", "Home")',
+                    method: 'POST',
+                    datatype: 'json',
+                    data: {
+                        uid: value
+
+                    },
+                    success: function (data) {
+                        $('#CName').val(data.CN);
+                        $('#CDesc').val(data.CD);
+                        $('#CMaterial').val(data.CM);
+                        $('#CUtil').val(data.CU);
+                        $('#CExpo').val(data.CX);
+                        $('#CCat').val(data.CC);
+                        $('#CCoF').val(data.CF);
+
+                    }
+            });
+
+
+
+            $.ajax({
+                url: '@Url.Action("GetDates", "Home")',
+                    method: 'Get',
+                    datatype: 'json',
+                    data: {
+                        uid: value
+
+                    },
+                success: function (data) {
+                    $('#DInspected').empty();
+                    $('#DInspected').append($('<option>', {
+                        value: 'Choose your option',
+                        text: 'Choose your option'
+                    }));
+                    $.each(data.data, function (Text, value) {
+                        $('#DInspected').append($('<option>', {
+                            value: value.value,
+                            text: value.Text
+                        }));
+
+                    });
+                    },
+                    error: function(xhr, status, error) {
+                    var err = eval( xhr.responseText);
+                    alert(err.Message);
+                }
+            });
+
+
+              $.ajax({
+                url: '@Url.Action("PerfoInfo", "Home")',
+                    method: 'POST',
+                    datatype: 'json',
+                    data: {
+                        uid: value
+
+                    },
+                    success: function (data) {
+                        $('#CScore').val(data.CS);
+                        $('#AScore').val(data.AP);
+                        $('#LCurve').val(data.LC);
+                        $('#DInspected').val(data.DI);
+                        $('#DCCHangedRecord').val(data.DIC);
+                        $('#DAccuracy').val(data.DA);
+                    }
+             });
+
+            $.ajax({
+                url: '@Url.Action("FinanceInfo", "Home")',
+                    method: 'POST',
+                    datatype: 'json',
+                    data: {
+                        uid: value
+
+                    },
+                    success: function (data) {
+                        $('#unitrate').val(data.UR);
+                        $('#qty').val(data.QT);
+                        $('#Dimm').val(data.DI);
+                        $('#RCost').val(data.RC);
+                    }
+             });
+        });
+
+        $('#AddComponent').click(function () {
+            $.ajax({
+                url: '/Home/AdDComponent',
+                method: 'post',
+                data: {
+                    CName: $('#CName').val(),
+                    CDsic: $('textarea[name="Disc"]').val(),
+                    Assets: $('#Assets').val(),
+                    IDate: $('#date').val(),
+                    DDate: $('#DDate').val(),
+                    Material: $('#material').val(),
+                    Util: $('#utilisation').val(),
+                    EExpo: $('#EnvironmentExposure').val(),
+                    CompCat: $('#CompCat').val(),
+                    CompF: $('#CompCoF').val()
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.d === 1) {
+                        alert('Component Added');
+                    } else {
+                        alert('Component Added Failed');
+                    }
+
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+
+        });
+
+        $('#AddNewAssetModelButton').click(function () {
+            var checked = null;
+            $('input[type=checkbox]:checked').map(function (i, e) {
+                checked = $(e).val();
+            });
+            $.ajax({
+                url: '/Home/AddtoNewAsset',
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    values: checked,
+                    AName: $('#AName').val(),
+                    ADsic: $('textarea[name="ADsic"]').val(),
+                    ABuild: $('#ABuild').val(),
+                    AFloor: $('#Afloor').val(),
+                    ARoom: $('#ARoom').val(),
+
+                },
+                success: function (data) {
+                    alert(data.Result);
+                }
+
+            });
+
+        });
+
+        $('#DInspected').change(function () {
+            var value = $(this).find(':selected').val();
+            var text = $(this).find(':selected').text();
+
+               $.ajax({
+                url: '@Url.Action("GetDateInpectedData", "Home")',
+                    method: 'POST',
+                    datatype: 'json',
+                    data: {
+                        text:text,
+                        value:value
+
+                    },
+                    success: function (data) {
+                        $('#CScore').val(data.CS);
+                        $('#AScore').val(data.AP);
+                        $('#LCurve').val(data.LC);
+                        $('#DCCHangedRecord').val(data.DIC);
+                        $('#DAccuracy').val(data.DA);
+                    }
+             });
+
+        });
+
+
+    });
+</script>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Assets</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Complete List Of Assets
+                <a href="@Url.Action("AddAssets","Home")" class="btn btn-success pull-right">Add New Asset</a>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <table width="100%" class="table table-striped table-bordered table-hover" id="Assetstable">
+                    <thead>
+                        <tr>
+                            <th class="hidden">Asset ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Campus</th>
+                            <th>Building</th>
+                            <th>Floor</th>
+                            <th>Room</th>
+                            <th>Edit</th>
+                            <th>Components</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody></tbody>
+                </table>
+                <!-- /.table-responsive -->
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Complete List Of Assets
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <table width="100%" class="table table-striped table-bordered table-hover" id="Componenttable">
+                    <thead>
+                        <tr>
+                            <th class="hidden">Component ID</th>
+                            <th>Component Name</th>
+                            <th>Performace Measure</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <!-- /.table-responsive -->
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#Attribute">Attribute</a></li>
+            <li><a data-toggle="tab" href="#Performance">Performance</a></li>
+            <li><a data-toggle="tab" href="#Finance">Finance</a></li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div id="Attribute" class="tab-pane fade in active">
+                <h3>Attribute</h3>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="DICreated">Component Name</label>
+                            <input type="text" class="form-control" id="CName">
+                        </div>
+                        <div class="form-group">
+                            <label for="InspectedBy">Component Description</label>
+                            <input type="text" class="form-control" id="CDesc">
+                        </div>
+                        <div class="form-group">
+                            <label for="InspectNote">Component Material</label>
+                            <input type="text" class="form-control" id="CMaterial">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="DIClosed">Component Utilisation</label>
+                            <input type="text" class="form-control" id="CUtil">
+                        </div>
+                        <div class="form-group">
+                            <label for="Treat">Component Environment Exposure</label>
+                            <input type="text" class="form-control" id="CExpo">
+                        </div>
+                        <div class="form-group">
+                            <label for="WOName">CompCat</label>
+                            <input type="text" class="form-control" id="CCat">
+                        </div>
+                        <div class="form-group">
+                            <label for="WOName">CompCoF</label>
+                            <input type="text" class="form-control" id="CCoF">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="Performance" class="tab-pane fade">
+                <h3>Performance</h3>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="Cond">Condition Score</label>
+                        <input type="text" class="form-control" id="CScore">
+                    </div>
+                    <div class="form-group">
+                        <label for="Apper">Appearence Score</label>
+                        <input type="text" class="form-control" id="AScore">
+                    </div>
+                    <div class="form-group">
+                        <label for="Apper">Lifecycle Curve</label>
+                        <input type="text" class="form-control" id="LCurve">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="LInspecDate">Date Inspected</label>
+                        <select id="DInspected" class="form-control">
+                            <option value="-1">Select Option</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="DCCHangedRecord">Date Condition Change </label>
+                        <input type="text" class="form-control" id="DCCHangedRecord">
+                    </div>
+                    <div class="form-group">
+                        <label for="DCCHangedRecord">Date Accuracy </label>
+                        <input type="text" class="form-control" id="DAccuracy">
+                    </div>
+                </div>
+            </div>
+            <div id="Finance" class="tab-pane fade">
+                <h3>Finance</h3>
+                <div class="col-lg-6">
+                    <form>
+                        <div class="form-group">
+                            <label for="treatmentbox">UnitRate</label>
+                            <input type="text" class="form-control" id="unitrate">
+                        </div>
+                        <div class="form-group">
+                            <label for="DSize">Dimension</label>
+                            <input type="text" class="form-control" id="Dimm">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <form>
+                        <div class="form-group">
+                            <label for="EstMaterialCost">Quantity</label>
+                            <input type="text" class="form-control" id="qty">
+                        </div>
+                        <div class="form-group">
+                            <label for="EstLabourCost">Replacement Cost</label>
+                            <input type="text" class="form-control" id="RCost">
+                        </div>
+                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
